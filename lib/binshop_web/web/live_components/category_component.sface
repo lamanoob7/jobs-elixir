@@ -1,0 +1,13 @@
+<div class="category" id="category-<%= @category.id %>" style="">
+  <LiveRedirect to={Routes.category_show_path(@socket, :show, @category.slug)}>
+  <div>
+    <img src={"#{Binshop.Media.path_photo(@category.image)}"} style="width: 160px; height: 160px;" height="160" />
+  </div>
+  <div>
+    {@category.name}
+  </div>
+  <div>
+    {@category.description}
+  </div>
+  </LiveRedirect>
+</div>

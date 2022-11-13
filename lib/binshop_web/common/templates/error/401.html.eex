@@ -1,0 +1,17 @@
+<div class="full-flex-col">
+  <div class="grow col align-center justify-center">
+    <div class="title"><%= Map.get(assigns, :title, "Unauthorized") %></div>
+    <div class="status"><%= Map.get(assigns, :status, "401") %></div>
+    <div class="code"><%= Map.get(assigns, :code, "401") %></div>
+    <div class="detail"><%= Map.get(assigns, :detail, "Request has not been applied because it lacks valid authentication credentials for the target resource.") %></div>
+    <%= if nil !== Map.get(assigns, :errors) do %>
+      <div class="errors">
+        <%= for {k,e} <- Map.get(assigns, :errors) do %>
+          <div><strong><%= k %>: </strong><%= e %></div>
+       <% end %>
+      </div>
+    <% end %>
+    
+  </div>
+  <div class=""></div>
+</div>

@@ -1,0 +1,68 @@
+<h1>Show Category</h1>
+
+{#if @live_action in [:edit]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_category_show_path(@socket, :show, @category)}
+  >
+    <h3>{@page_title}</h3>
+    <BinshopWeb.Admin.CategoryLive.FormComponent
+      id={@category.id}
+      title={@page_title}
+      action={@live_action}
+      category={@category}
+      return_to={Routes.admin_category_show_path(@socket, :show, @category)}
+    />
+  </BinshopWeb.Common.Components.ModalComponent>
+{#elseif @live_action in [:add_category]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_category_show_path(@socket, :show, @category)}
+    >
+      <h3>{@page_title}</h3>
+      <BinshopWeb.Admin.ProductCategoryLive.FormComponent
+        id={:new}
+        title={@page_title}
+        action={:new}
+        product_category={@product_category}
+        set_category={true}
+        category={@category}
+        return_to={Routes.admin_category_show_path(@socket, :show, @category)}
+      />
+    </BinshopWeb.Common.Components.ModalComponent>
+{/if}
+<ul>
+
+  <li>
+    <img src={Binshop.Media.path_photo(@category.image)} style="height:160px;" />
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    {@category.name}
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    {@category.description}
+  </li>
+
+  <li>
+    <strong>Is visible:</strong>
+    {@category.is_visible}
+  </li>
+
+  <li>
+    <strong>Contain products:</strong>
+    <span><LivePatch to={Routes.admin_category_show_path(@socket, :add_category, @category)} class="button">Add product into category</LivePatch></span>
+    <ul>
+    {#for product <- @category.products}
+      <li>{product.name}</li>
+    {/for}
+    </ul>
+  </li>
+
+</ul>
+
+<span>
+  <LivePatch to={Routes.admin_category_show_path(@socket, :edit, @category)} class="button">Edit</LivePatch>
+</span>
+<span>
+  <LiveRedirect to={Routes.admin_category_index_path(@socket, :index)}>Back</LiveRedirect>
+</span>

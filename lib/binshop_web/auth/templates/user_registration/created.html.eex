@@ -1,0 +1,11 @@
+<div class="border-2 rounded-2xl shadow-lg p-4 space-y-1 text-center">
+  <h1><%= gettext "Registration complete" %></h1>
+
+  <div>
+    <%= gettext "Welcome to %{name}!", name: "Binshop" %>
+  </div>
+
+  <div>
+    Thank you for registration and enjoy.
+  </div>
+</div>

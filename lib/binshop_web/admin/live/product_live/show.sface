@@ -1,0 +1,86 @@
+<h1>Show Product</h1>
+
+{#if @live_action in [:edit]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_product_show_path(@socket, :show, @product)}
+  >
+    <h3>{@page_title}</h3>
+    <BinshopWeb.Admin.ProductLive.FormComponent
+      id={@product.id}
+      title={@page_title}
+      action={@live_action}
+      product={@product}
+      return_to={Routes.admin_product_show_path(@socket, :show, @product)}
+    />
+  </BinshopWeb.Common.Components.ModalComponent>
+{#elseif @live_action in [:add_category]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_product_show_path(@socket, :show, @product)}
+  >
+    <h3>{@page_title}</h3>
+    <BinshopWeb.Admin.ProductCategoryLive.FormComponent
+      id={:new}
+      title={@page_title}
+      action={:new}
+      product_category={@product_category}
+      set_product={@product}
+      return_to={Routes.admin_product_show_path(@socket, :show, @product)}
+    />
+    </BinshopWeb.Common.Components.ModalComponent>
+{/if}
+
+<ul>
+  <li>
+    <img src={Binshop.Media.path_photo(@product.image)} height="160" />
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    {@product.name}
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    {@product.description}
+  </li>
+
+  <li>
+    <strong>Price:</strong>
+    {@product.price}
+  </li>
+
+  <li>
+    <strong>Price without vat:</strong>
+    {@product.price_without_vat}
+  </li>
+
+  <li>
+    <strong>Vat:</strong>
+    {@product.vat}
+  </li>
+
+  <li>
+    <strong>Is visible:</strong>
+    {@product.is_visible}
+  </li>
+
+  <li>
+    <strong>Contain products:</strong>
+    <span>
+      <LivePatch to={Routes.admin_product_show_path(@socket, :add_category, @product)} class="button">Insert into category</LivePatch>
+    </span>
+    <ul>
+      {#for category <- @product.categories}
+      <li>
+        {category.name}
+      </li>
+      {/for}
+    </ul>
+  </li>
+
+</ul>
+
+<span>
+  <LivePatch to={Routes.admin_product_show_path(@socket, :edit, @product)} class="button">Edit</LivePatch>
+</span>
+<span>
+  <LivePatch to={Routes.admin_product_index_path(@socket, :index)} class="button">Back</LivePatch>
+</span>

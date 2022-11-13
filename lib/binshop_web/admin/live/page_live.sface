@@ -1,0 +1,30 @@
+<section class="phx-hero">
+  <h1>{gettext "Welcome to administration of %{name}!", name: "Binshop"}</h1>
+  <p>Place to sell your dreamy products</p>
+
+  <div class="main-menu">
+    <ul>
+      <li>
+        <a href="" class="">
+          <span>
+            <span><LiveRedirect to={Routes.admin_category_index_path(@socket, :index)}>Categories</LiveRedirect></span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="" class="">
+          <span>
+            <span><LiveRedirect to={Routes.admin_product_index_path(@socket, :index)}>Products</LiveRedirect></span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="" class="">
+          <span>
+            <span><LiveRedirect to={Routes.admin_product_category_index_path(@socket, :index)}>Product Categories</LiveRedirect></span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

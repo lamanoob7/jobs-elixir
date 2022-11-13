@@ -1,0 +1,50 @@
+<h1>Listing Product categories</h1>
+
+{#if @live_action in [:new, :edit]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_product_category_index_path(@socket, :index, [page: @page, page_size: @page_size])}
+  >
+    <h3>{@page_title}</h3>
+    <BinshopWeb.Admin.ProductCategoryLive.FormComponent
+      id={@product_category.id || :new}
+      title={@page_title}
+      action={@live_action}
+      product_category={@product_category}
+      return_to={Routes.admin_product_category_index_path(@socket, :index, [page: @page, page_size: @page_size])}
+    />
+  </BinshopWeb.Common.Components.ModalComponent>
+{/if}
+
+<span>
+  <LivePatch to={Routes.admin_product_category_index_path(@socket, :new)}>New Product category</LivePatch>
+</span>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Product</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="product_categories">
+    {#for product_category <- @product_categories}
+      <tr id={"product_category-#{product_category.id}"}>
+        <td>{product_category.category.name}</td>
+        <td>{product_category.product.name}</td>
+
+        <td>
+          <span>
+            <LiveRedirect to={Routes.admin_product_category_show_path(@socket, :show, product_category)}>Show</LiveRedirect>
+          </span>
+          <span>
+            <LivePatch to={Routes.admin_product_category_index_path(@socket, :edit, product_category)}>Edit</LivePatch>
+          </span>
+          <span>
+            <Link label="Delete" to="#" opts={phx_click: "delete", phx_value_id: product_category.id, data: [confirm: "Are you sure?"]} />
+          </span>
+        </td>
+      </tr>
+    {/for}
+  </tbody>
+</table>

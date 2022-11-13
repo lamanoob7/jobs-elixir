@@ -1,0 +1,20 @@
+<div>
+  <div>
+    <img src={"#{Binshop.Media.path_photo(@category.image)}"} height="160" />
+  </div>
+  <div>
+    <h1>{@category.name}</h1>
+  </div>
+  <div>
+    <strong>Description:</strong>{@category.description}
+  </div>
+  <div>
+    <strong>Contain products:</strong>
+    <ul class="listing listing-products">
+      {#for product <- @category.products}
+        <BinshopWeb.Components.ProductComponent id={"categoty-product-#{product.id}"} basket_storage_id={@basket_storage_id} product={product} />
+      {/for}
+    </ul>
+  </div>
+</div>
+

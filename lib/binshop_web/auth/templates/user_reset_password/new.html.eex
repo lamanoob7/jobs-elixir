@@ -1,0 +1,16 @@
+<div class="border-2 rounded-2xl shadow-lg p-4 space-y-2">
+  <h1>Forgot your password?</h1>
+
+  <%= form_for :user, Routes.user_reset_password_path(@conn, :create), fn f -> %>
+    <%= email_input f, :email, required: true, placeholder: "Email", class: "w-full mb-1 rounded-xl p-1 border-binario-300 border-2 outline-none" %>
+
+    <div>
+      <%= submit "Send instructions to reset password", class: "w-full border-2 border-binario-300 rounded-xl p-1 hover:text-binario-400 hover:bg-gray-300" %>
+    </div>
+  <% end %>
+
+  <p>
+    <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+    <%= link "Log in", to: Routes.auth_path(@conn, :request) %>
+  </p>
+</div>

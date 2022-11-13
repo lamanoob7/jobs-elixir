@@ -1,0 +1,72 @@
+<Form for={@changeset}
+  opts={
+    phx_target: @myself,
+    phx_change: "validate",
+    phx_submit: "save",
+    autocomplete: "off",
+    action: @action,
+    id: "product-form"
+  }
+>
+
+<Field name={:name}>
+    <Label/>
+    <div class="control">
+      <TextInput/>
+      <ErrorTag/>
+    </div>
+  </Field>
+  <Field name={:description}>
+    <Label/>
+    <div class="control">
+      <TextArea/>
+      <ErrorTag/>
+    </div>
+  </Field>
+  <Field name={:price}>
+    <Label />
+    <div class="control">
+      <NumberInput opts={step: "0.01"}/>
+      <ErrorTag/>
+    </div>
+  </Field>
+  <Field name={:price_without_vat}>
+    <Label />
+    <div class="control">
+      <NumberInput opts={step: "0.01"}/>
+      <ErrorTag/>
+    </div>
+  </Field>
+  <Field name={:vat}>
+    <Label />
+    <div class="control">
+      <NumberInput opts={step: "0.01"}/>
+      <ErrorTag/>
+    </div>
+  </Field>
+  <Field name={:is_visible}>
+    <Label />
+    <div class="control">
+      <Checkbox/>
+      <ErrorTag/>
+    </div>
+  </Field>
+  <div class="container" phx-drop-target={@uploads.image.ref}>
+    <LiveFileInput upload={@uploads.image} />
+  </div>
+
+  {#for entry <- @uploads.image.entries}
+  <div>
+      <div>{live_img_preview entry, height: 80}</div>
+      <div>
+          <progress max="100" value="<%= entry.progress %>" />
+      </div>
+      <div>
+          <a href="#" phx-click="cancel-entry" phx-value-ref={entry.ref} phx-target={@myself}">
+              cancel
+          </a>
+      </div>
+  </div>
+  {/for}
+  <Submit opts={phx_disable_with: "Saving..."}>Save</Submit>
+</Form>

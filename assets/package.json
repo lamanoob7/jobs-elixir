@@ -1,0 +1,32 @@
+{
+  "repository": {},
+  "description": " ",
+  "license": "MIT",
+  "scripts": {
+    "deploy:gulp": "NODE_ENV=production gulp build",
+    "deploy:css": "NODE_ENV=production tailwindcss --postcss --minify --input=css/app.css --output=../priv/static/assets/app.css",
+    "dev:gulp": "die-with-stdin gulp dev",
+    "dev:css": "die-with-stdin tailwindcss --input=css/app.css --output=../priv/static/assets/app.css --postcss --watch"
+  },
+  "dependencies": {
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view",
+    "topbar": "^1.0.1"
+  },
+  "devDependencies": {
+    "@binario/image-optimizer": "^0.4.2",
+    "autoprefixer": "^10.3.1",
+    "chokidar": "^3.5.2",
+    "cssnano": "^5.0.6",
+    "die-with-stdin": "^0.2.0",
+    "gulp": "^4.0.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "postcss": "^8.3.5",
+    "postcss-import": "^14.0.2",
+    "tailwindcss": "^2.2.4",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}

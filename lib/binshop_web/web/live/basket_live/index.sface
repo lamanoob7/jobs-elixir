@@ -1,0 +1,9 @@
+<section class="phx-hero">
+  <h1>{gettext "Welcome to our %{name}!", name: "Binshop"}</h1>
+  <p>Find what you want</p>
+  <section class="hp-categories">
+    {#for product <- @products}
+    <BinshopWeb.Components.Basket.ProductComponent product={product} basket_storage_id={@basket.basket_storage_id}/>
+    {/for}
+  </section>
+</section>

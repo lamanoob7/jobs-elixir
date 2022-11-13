@@ -1,0 +1,101 @@
+<h1>Listing Products</h1>
+
+{#if @live_action in [:new, :edit]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_category_index_path(@socket, :index, [sort: @sort, page: @page, page_size: @page_size])}
+  >
+    <h3>{@page_title}</h3>
+    <BinshopWeb.Admin.ProductLive.FormComponent
+      id={@product.id || :new}
+      title={@page_title}
+      action={@live_action}
+      product={@product}
+      return_to={Routes.admin_product_index_path(@socket, :index, [sort: @sort, page: @page, page_size: @page_size])}
+    />
+  </BinshopWeb.Common.Components.ModalComponent>
+{/if}
+
+<span>
+  <LivePatch to={Routes.admin_product_index_path(@socket, :new)}>New Product</LivePatch>
+</span>
+
+<div>
+  <Form for={:search}
+    opts={phx_submit: "search-name", autocomplete: "off"}
+  >
+    <TextInput/>
+    <Submit opts={[phx_disable_with: "Searching..."]}>Search</Submit>
+  </Form>
+  {#if @loading}
+  <span>Loading...</span>
+  {/if}
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        <LivePatch to={Routes.admin_product_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "name" do "name" else "-name" end
+          )}>Name</LivePatch>
+      </th>
+      <th>Description</th>
+      <th>
+        <LivePatch to={Routes.admin_product_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "price" do "price" else "-price" end
+          )}>Price</LivePatch>
+      </th>
+      <th>
+        <LivePatch to={Routes.admin_product_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "price_without_vat" do "price_without_vat" else "-price_without_vat" end
+          )}>Price w/o VAT</LivePatch>
+      </th>
+      <th>
+        <LivePatch to={Routes.admin_product_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "vat" do "vat" else "-vat" end
+          )}>VAT</LivePatch>
+      </th>
+      <th>
+        <LivePatch to={Routes.admin_product_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "visible" do "visible" else "-visible" end
+          )}>Is visible</LivePatch>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="products">
+    {#for  product <- @products}
+      <tr id={"product-#{product.id}"}>
+        <td><img src={Binshop.Media.path_photo(product.image)}" height="80" /></td>
+        <td>{product.name}</td>
+        <td>{product.description}</td>
+        <td>{product.price |> Decimal.from_float() |> Decimal.round(2)}</td>
+        <td>{product.price_without_vat |> Decimal.from_float() |> Decimal.round(2)}</td>
+        <td>{product.vat |> Decimal.from_float() |> Decimal.round(2)}</td>
+        <td>{product.is_visible}</td>
+        <td>
+          <span>
+            <LiveRedirect to={Routes.admin_product_show_path(@socket, :show, product)}>Show</LiveRedirect>
+          </span>
+          <span>
+            <LivePatch to={Routes.admin_product_index_path(@socket, :edit, product)}>Edit</LivePatch>
+          </span>
+          <span>
+            <Link label="Delete" to="#" opts={phx_click: "delete", phx_value_id: product.id, data: [confirm: "Are you sure?"]} />
+          </span>
+        </td>
+      </tr>
+    {/for}
+  </tbody>
+</table>
+

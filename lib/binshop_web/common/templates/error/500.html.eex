@@ -1,0 +1,17 @@
+<div class="full-flex-col">
+  <div class="grow col align-center justify-center">
+    <div class="title"><%= Map.get(assigns, :title, "Internal Server Error") %></div>
+    <div class="status"><%= Map.get(assigns, :status, "500") %></div>
+    <div class="code"><%= Map.get(assigns, :code, "500") %></div>
+    <div class="detail"><%= Map.get(assigns, :detail, "Server encountered an unexpected condition that prevented it from fulfilling the request.") %></div>
+    <%= if nil !== Map.get(assigns, :errors) do %>
+      <div class="errors">
+        <%= for {k,e} <- Map.get(assigns, :errors) do %>
+          <div><strong><%= k %>: </strong><%= e %></div>
+       <% end %>
+      </div>
+    <% end %>
+    
+  </div>
+  <div class=""></div>
+</div>

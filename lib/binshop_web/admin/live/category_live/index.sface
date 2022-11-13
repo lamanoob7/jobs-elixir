@@ -1,0 +1,80 @@
+<h1>Listing Categories</h1>
+
+{#if @live_action in [:new, :edit]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_category_index_path(@socket, :index, [sort: @sort, page: @page, page_size: @page_size])}
+  >
+    <h3>{@page_title}</h3>
+    <BinshopWeb.Admin.CategoryLive.FormComponent
+      id={@category.id || :new}
+      title={@page_title}
+      action={@live_action}
+      category={@category}
+      return_to={Routes.admin_category_index_path(@socket, :index, [sort: @sort, page: @page, page_size: @page_size])}
+    />
+  </BinshopWeb.Common.Components.ModalComponent>
+{/if}
+
+<span>
+  <LivePatch to={Routes.admin_category_index_path(@socket, :new)}>New Category</LivePatch>
+</span>
+
+<div>
+  <Form for={:search}
+    opts={phx_submit: "search-name", autocomplete: "off"}
+  >
+    <TextInput/>
+    <Submit opts={[phx_disable_with: "Searching..."]}>Search</Submit>
+  </Form>
+  {#if @loading}
+  <span>Loading...</span>
+  {/if}
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>
+        <LivePatch to={Routes.admin_category_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "name" do "name" else "-name" end
+          )}>Name</LivePatch>
+      </th>
+      <th>Description</th>
+      <th>
+        <LivePatch to={Routes.admin_category_index_path(@socket, :index,
+            page: @page,
+            page_size: @page_size,
+            sort: unless @sort == "visible" do "visible" else "-visible" end
+          )}>Is visible</LivePatch>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="categories">
+    {#for category <- @categories}
+      <tr id={"category-#{category.id}"}>
+        <td><img src={Binshop.Media.path_photo(category.image)} style="height: 80px;" /></td>
+        <td>{category.name}</td>
+        <td>{category.description}</td>
+        <td>{category.is_visible}</td>
+
+        <td>
+          <span>
+            <LiveRedirect to={Routes.admin_category_show_path(@socket, :show, category)}>Show</LiveRedirect>
+          </span>
+          <span>
+            <LivePatch to={Routes.admin_category_index_path(@socket, :edit, category)}>Edit</LivePatch>
+          </span>
+          <span>
+            <Link label="Delete" to="#" opts={phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"]} />
+          </span>
+        </td>
+      </tr>
+    {/for}
+  </tbody>
+
+  <BinshopWeb.Components.PaginatorComponent id={:paginator} paginate={@paginate} route={&Routes.admin_category_index_path(@socket, :index, Keyword.merge([sort: @sort], &1))} />
+
+</table>

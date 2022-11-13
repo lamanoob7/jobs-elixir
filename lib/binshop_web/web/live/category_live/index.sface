@@ -1,0 +1,9 @@
+<section class="phx-hero">
+  <h1>{gettext "Welcome to our %{name}!", name: "Binshop"}</h1>
+  <p>Find what you want</p>
+  <section class="hp-categories">
+    {#for category <- @categories}
+    <BinshopWeb.Components.CategoryComponent id={"category-#{category.id}"} category={category} />
+    {/for}
+  </section>
+</section>

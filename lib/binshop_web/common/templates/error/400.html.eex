@@ -1,0 +1,17 @@
+<div class="full-flex-col">
+  <div class="grow col align-center justify-center">
+    <div class="title"><%= Map.get(assigns, :title, "Bad Request") %></div>
+    <div class="status"><%= Map.get(assigns, :status, "400") %></div>
+    <div class="code"><%= Map.get(assigns, :code, "400") %></div>
+    <div class="detail"><%= Map.get(assigns, :detail, "Server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).") %></div>
+    <%= if nil !== Map.get(assigns, :errors) do %>
+      <div class="errors">
+        <%= for {k,e} <- Map.get(assigns, :errors) do %>
+          <div><strong><%= k %>: </strong><%= e %></div>
+       <% end %>
+      </div>
+    <% end %>
+    
+  </div>
+  <div class=""></div>
+</div>

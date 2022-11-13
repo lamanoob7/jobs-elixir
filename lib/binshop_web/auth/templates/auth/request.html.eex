@@ -1,0 +1,38 @@
+<div class="border-2 rounded-2xl shadow-lg p-4">
+  <div class="flex items-center">
+    <a href="<%= Routes.auth_path(@conn, :request, "facebook") %>"><img src="/images/facebook-icon.svg" class="m-1 w-12 h-12"></a>
+    <a class="hover:text-binario-300" href="<%= Routes.auth_path(@conn, :request, "facebook") %>">
+      <i class="fa fa-facebook"></i>
+      <span class="text-center">Sign in with Facebook</span>
+    </a>
+  </div>
+  <div class="flex items-center">
+    <a href="<%= Routes.auth_path(@conn, :request, "google") %>"><img src="/images/google-icon.svg" class="m-1 w-12 h-12"></a>
+    <a class="hover:text-binario-300" href="<%= Routes.auth_path(@conn, :request, "google") %>">
+      <i class="fa fa-google"></i>
+      <span class="text-center">Sign in with Google</span>
+    </a>
+  </div>
+
+  <div class="py-2">
+    <h1>Log in with username / password</h1>
+
+    <%= form_tag @callback_url, method: "post" do %>
+      <div class="flex flex-col py-2 space-y-1">
+        <legend>Authentication Information</legend>
+        <input class="w-full rounded-xl p-1 border-binario-300 border-2 outline-none" type="email" name="email" id="email" placeholder="Email" required value="<%= @conn.params["email"] %>" />
+        <input class="w-full rounded-xl p-1 border-binario-300 border-2 outline-none" type="password" name="password" id="password" placeholder="Password" required />
+        <div class="space-x-5">
+          <label for="remember_me">Keep me logged in for 60 days</label>
+          <input type="checkbox" name="remember_me" id="remember_me" />
+        </div>
+        <input class="w-full cursor-pointer border-2 border-binario-300 rounded-xl p-1 hover:text-binario-400 hover:bg-gray-300" type="submit" value="Login" />
+      </div>
+    <% end %>
+
+  </div>
+  <div>
+    <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "hover:text-binario-300" %> |
+    <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "hover:text-binario-300" %>
+  </div>
+</div>

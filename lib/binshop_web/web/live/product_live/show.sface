@@ -1,0 +1,19 @@
+<div>
+  <div>
+    <img src={"#{Binshop.Media.path_photo(@product.image)}"} height="160" />
+  </div>
+  <div>
+    <h1>{@product.name}</h1>
+  </div>
+  <div>
+    <strong>Description:</strong>{@product.description}
+  </div>
+  <div>
+    <strong>In categories:</strong>
+    <ul>
+      {#for category <- @product.categories}
+      <li>{category.name}</li>
+      {/for}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<Form for={@changeset}
+  opts={
+    phx_target: @myself,
+    phx_change: "validate",
+    phx_submit: "save",
+    autocomplete: "off",
+    action: @action,
+    id: "product_category-form"
+  }
+>
+
+  {#if @set_category}
+    <Field name={:category_id}>
+      <HiddenInput />
+      <ErrorTag />
+    </Field>
+  {#else}
+    <Field name={:category_id}>
+      <Label/>
+      <div class="control">
+        <Select field={:category_id} options={Enum.map(@categories, &{&1.name, &1.id})} prompt="Select category"/>
+        <ErrorTag/>
+      </div>
+    </Field>
+  {/if}
+
+  {#if @set_product}
+    <Field name={:product_id}>
+      <HiddenInput />
+      <ErrorTag />
+    </Field>
+  {#else}
+    <Field name={:product_id}>
+      <Label/>
+      <div class="control">
+        <Select field={:product_id} options={Enum.map(@products, &{&1.name, &1.id})} prompt="Select product"/>
+        <ErrorTag/>
+      </div>
+    </Field>
+  {/if}
+
+  <Submit opts={phx_disable_with: "Saving..."}>Save</Submit>
+</Form>

@@ -1,0 +1,16 @@
+<img src="/images/navbar-touch.svg" id="menu-dropdown" class="w-10 h-10 m-1 mr-4 cursor-pointer sm:hidden">
+<ul class="dropdown flex sm:items-center space-x-2 absolute sm:static top-24 -right-28 sm:mr-4 p-4 bg-gray-300 sm:bg-white sm:flex-row rounded-l-xl sm:rounded-r-xl sm:border-binario-300 sm:border-2 flex-col transition-right ease-in-out duration-500">
+
+  <li><%= link "Basket", to: Routes.basket_index_path(@conn, :index), class: "hover:text-binario-300" %></li>
+  <%= if @current_user.role == :admin do %>
+    <li><%= link "Administration", to: Routes.admin_page_path(@conn, :index), class: "hover:text-binario-300" %></li>
+  <% end %>
+  <%= if @current_user do %>
+    <li class="hidden sm:inline"><%= @current_user.email %></li>
+    <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "hover:text-binario-300" %></li>
+    <li><%= link "Log out", to: Routes.auth_path(@conn, :delete), method: :delete, class: "hover:text-binario-300" %></li>
+  <% else %>
+    <li><%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "hover:text-binario-300" %></li>
+    <li><%= link "Log in", to: Routes.auth_path(@conn, :request), class: "hover:text-binario-300" %></li>
+  <% end %>
+</ul>

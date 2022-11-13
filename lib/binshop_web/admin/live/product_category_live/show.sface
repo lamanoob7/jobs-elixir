@@ -1,0 +1,36 @@
+<h1>Show Product category</h1>
+
+{#if @live_action in [:edit]}
+  <BinshopWeb.Common.Components.ModalComponent id="modal" return_to={Routes.admin_product_category_show_path(@socket, :show, @product_category)}
+    >
+      <h3>{@page_title}</h3>
+      <BinshopWeb.Admin.ProductCategoryLive.FormComponent
+        id={@product_category.id}
+        title={@page_title}
+        action={@live_action}
+        product_category={@product_category}
+        return_to={Routes.admin_product_category_show_path(@socket, :show, @product_category)}
+      />
+    </BinshopWeb.Common.Components.ModalComponent>
+{/if}
+
+<ul>
+
+  <li>
+    <strong>Category:</strong>
+    {@product_category.category.name}
+  </li>
+
+  <li>
+    <strong>Product:</strong>
+    {@product_category.product.name}
+  </li>
+
+</ul>
+
+<span>
+  <LivePatch to={Routes.admin_product_category_show_path(@socket, :edit, @product_category)} class="button">Edit</LivePatch>
+</span>
+<span>
+  <LiveRedirect to={Routes.admin_product_category_index_path(@socket, :index)}>Back</LiveRedirect>
+</span>

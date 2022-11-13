@@ -1,0 +1,27 @@
+<section class="phx-page">
+  <div>
+    <h1>{gettext "Welcome to our %{name}!", name: "Binshop"}</h1>
+    <p>Find what you want</p>
+  </div>
+
+  <div>
+    <div>
+      <h2>Categories:</h2>
+      <section class="hp-categories">
+
+        {#for category <- @categories}
+          <BinshopWeb.Components.CategoryComponent id={"category-#{category.id}"} basket_storage_id={@basket_storage_id} category={category} />
+        {/for}
+      </section>
+    </div>
+
+    <div>
+      <h2>Products:</h2>
+      <section class="hp-products">
+        {#for product <- @products}
+          <BinshopWeb.Components.ProductComponent id={"product-#{product.id}"} basket_storage_id={@basket_storage_id} product={product} />
+        {/for}
+      </section>
+    </div>
+  </div>
+</section>

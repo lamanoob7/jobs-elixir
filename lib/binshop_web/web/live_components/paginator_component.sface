@@ -1,0 +1,48 @@
+<div class="pagination">
+  <div class="pagination-pages">
+    Page:
+    {#if @paginate.page_number > 1}
+      <span>
+      <LivePatch to={@route.([page: @paginate.page_number - 1, page_size: @paginate.page_size])}>Previous</LivePatch>
+      </span>
+    {/if}
+
+    {#if @paginate.page_number > 3}
+      <span>
+        <LivePatch to={@route.([page: 1, page_size: @paginate.page_size])}>1</LivePatch>
+      </span>
+    {/if}
+
+    <span>
+        {#for i <- @beginning..@ending}
+        <span>
+          {#if i == @paginate.page_number}
+          <strong>{i}</strong>
+          {#else}
+          <LivePatch to={@route.([page: i, page_size: @paginate.page_size])}>{i}</LivePatch>
+          {/if}
+        </span>
+        {/for}
+      </span>
+
+    {#if (@paginate.page_number + 3 ) < @paginate.total_pages}
+      <span>
+        <LivePatch to={@route.([page: @paginate.total_pages, page_size: @paginate.page_size])}>{Integer.to_string(@paginate.total_pages)}</LivePatch>
+      </span>
+    {/if}
+
+    {#if (@paginate.page_number < @paginate.total_pages)}
+      <span>
+      <LivePatch to={@route.([page: @paginate.page_number + 1, page_size: @paginate.page_size])}>Next</LivePatch>
+      </span>
+    {/if}
+  </div>
+  <div class="pagination-show">
+    Show per page:
+    {#for s <- @pagination_sizes}
+      <LivePatch to={@route.([page: 1, page_size: s])}>
+          {s}
+      </LivePatch>
+    {/for}
+  </div>
+</div>

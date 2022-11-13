@@ -1,0 +1,17 @@
+<div class="border-2 rounded-2xl shadow-lg p-4">
+  <h1><%= gettext "Registration pending" %></h1>
+
+  <div>
+    <%= gettext "Welcome to %{name}!", name: "Binshop" %>
+  </div>
+
+<div class="py-1">
+  <%= form_for :user_temp_registration, Routes.user_registration_path(@conn, :request), [novalidate: "novalidate"], fn f -> %>
+  <%= email_input f, :email, required: true, placeholder: "Email", class: "w-full rounded-xl p-1 border-binario-300 border-2 outline-none" %>
+
+    <div class="py-1">
+      <%= submit "Resend confirmation instructions", class: "w-full border-2 border-binario-300 rounded-xl p-1 hover:text-binario-400 hover:bg-gray-300" %>
+    </div>
+    <% end %>
+  </div>
+</div>

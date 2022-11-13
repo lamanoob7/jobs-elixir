@@ -1,0 +1,15 @@
+version: '3'
+services:
+  postgres:
+    container_name: binshop_postgres
+    image: char0n/postgresql-czech-fulltext:11.1
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres

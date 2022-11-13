@@ -1,0 +1,28 @@
+<div class="border-2 rounded-2xl shadow-lg p-4 space-y-2">
+  <h1>Reset password</h1>
+
+  <%= form_for @changeset, Routes.user_reset_password_path(@conn, :update, @token, method: :put), fn f -> %>
+    <%= if @changeset.action do %>
+      <div class="alert alert-danger">
+        <p>Oops, something went wrong! Please check the errors below.</p>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col space-y-1">
+      <%= password_input f, :password, required: true, placeholder: "New password", class: "w-full rounded-xl p-1 border-binario-300 border-2 outline-none" %>
+      <%= error_tag f, :password %>
+
+      <%= password_input f, :password_confirmation, required: true, placeholder: "Confirm new password", class: "w-full rounded-xl p-1 border-binario-300 border-2 outline-none" %>
+      <%= error_tag f, :password_confirmation %>
+
+      <div>
+        <%= submit "Reset password", class: "w-full border-2 border-binario-300 rounded-xl p-1 hover:text-binario-400 hover:bg-gray-300" %>
+      </div>
+    </div>
+  <% end %>
+
+  <p>
+    <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
+    <%= link "Log in", to: Routes.auth_path(@conn, :request) %>
+  </p>
+</div>

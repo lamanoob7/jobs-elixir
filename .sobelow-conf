@@ -1,0 +1,12 @@
+[
+  verbose: false,
+  private: true,
+  skip: true,
+  router: "",
+  exit: "low",
+  format: "txt",
+  out: "",
+  threshold: "low",
+  ignore: ["Config.CSP", "Config.HTTPS"],
+  ignore_files: ["lib/release_tasks.ex"]
+]

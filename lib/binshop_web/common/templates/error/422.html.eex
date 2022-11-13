@@ -1,0 +1,17 @@
+<div class="full-flex-col">
+  <div class="grow col align-center justify-center">
+    <div class="title"><%= Map.get(assigns, :title, "Unprocessable Entity") %></div>
+    <div class="status"><%= Map.get(assigns, :status, "422") %></div>
+    <div class="code"><%= Map.get(assigns, :code, "422") %></div>
+    <div class="detail"><%= Map.get(assigns, :detail, "Unable to process the contained instructions.") %></div>
+    <%= if nil !== Map.get(assigns, :errors) do %>
+      <div class="errors">
+        <%= for {k,e} <- Map.get(assigns, :errors) do %>
+          <div><strong><%= k %>: </strong><%= e %></div>
+       <% end %>
+      </div>
+    <% end %>
+    
+  </div>
+  <div class=""></div>
+</div>
